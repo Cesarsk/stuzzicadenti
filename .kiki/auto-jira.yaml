@@ -1,0 +1,121 @@
+version: 1
+enabled: true
+
+jira:
+  baseUrl: "https://stuzzicadenti.atlassian.net"
+  projectKeys: ["KAN"]
+  pickJql: 'project = KAN AND status = "To Do" AND labels = auto-agent ORDER BY priority DESC, created ASC, key ASC'
+
+  # Exact board status names (deterministic transitions)
+  statuses:
+    todo: "To Do"
+    inProgress: "In Progress"
+    review: "In Review"
+    blocked: "Blocked" # set to null/"" if not used
+
+  labels:
+    eligibility: "auto-agent"
+    blocked: "blocked-auto"
+    failed: "auto-failed"
+    needsSpec: "needs-spec"
+
+  requiredFields:
+    - summary
+    - description
+    - issuetype
+
+github:
+  repo: "Cesarsk/stuzzicadenti"
+  baseBranch: "main"
+
+  # Branch naming convention (deterministic)
+  # Supported vars: {type}, {issueKey}, {slug}
+  branchNameTemplate: "{type}/{issueKey}-{slug}"
+  allowedBranchTypes: ["feat", "fix", "chore"]
+
+  pr:
+    required: true
+    draft: false
+    requireDescription: true
+    descriptionTemplate: ".kiki/templates/pr-description.md"
+    enforceTemplateSections: true
+    requiredSections:
+      - "## What"
+      - "## Why"
+      - "## Scope"
+      - "## Validation"
+      - "## Risks / Notes"
+    onMissingSections: "fail-pr-create"
+    # Fill with real GitHub usernames
+    reviewers: []
+
+execution:
+  dryRun: false
+  maxTicketsPerRun: 1
+  maxMinutesPerTicket: 60
+  allowedIssueTypes: ["Task", "Bug", "Subtask"]
+
+  # Deterministic ticket lock to avoid duplicate workers
+  lock:
+    enabled: true
+    strategy: "jira-comment"
+    commentPrefix: "AUTO-LOCK"
+
+gitIsolation:
+  enabled: true
+  mode: "worktree-per-ticket" # mandatory
+  worktreeRoot: "/state/workspace/projects/_wt"
+  branchPerTicket: true
+  oneTicketPerWorktree: true
+  preventSharedDirectory: true
+  lockDir: "/state/workspace/projects/stuzzicadenti/.kiki/locks"
+  cleanup:
+    when: "after_pr_or_terminal_state"
+    removeWorktree: true
+
+scope:
+  # allow-list and deny-list for deterministic safety
+  allowedPaths:
+    - "**"
+  forbiddenPaths:
+    - ".github/workflows/**"
+    - "infra/**"
+    - "migrations/**"
+
+qualityGates:
+  allMustPass: true
+  commands: []
+
+blockedPolicy:
+  onBlocked:
+    addLabel: "blocked-auto"
+    postCommentFromTemplate: ".kiki/templates/blocked-comment.md"
+    transitionToBlocked: true
+    blockedStatusName: "Blocked"
+    stopCurrentTicket: true
+    pickNextTicket: false
+
+failurePolicy:
+  maxRetries: 1
+  onFinalFail:
+    addLabel: "auto-failed"
+    postComment: true
+    # Fill with Jira accountId or leave null
+    assignTo: null
+    transitionTo: "In Progress"
+
+audit:
+  enabled: true
+  logFile: ".kiki/logs/auto-jira.log"
+  include:
+    - ticket
+    - transition
+    - branch
+    - commit
+    - pr
+    - outcome
+
+humanApproval:
+  mergeToMain:
+    enabled: true
+    mode: "manual-only"
