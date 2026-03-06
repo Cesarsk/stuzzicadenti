@@ -51,6 +51,7 @@ github:
 
 execution:
   dryRun: false
+  autoExecute: true
   maxTicketsPerRun: 1
   maxMinutesPerTicket: 60
   allowedIssueTypes: ["Task", "Bug", "Subtask"]
