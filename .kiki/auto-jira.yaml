@@ -38,6 +38,14 @@ github:
     draft: false
     requireDescription: true
     descriptionTemplate: ".kiki/templates/pr-description.md"
+    enforceTemplateSections: true
+    requiredSections:
+      - "## What"
+      - "## Why"
+      - "## Scope"
+      - "## Validation"
+      - "## Risks / Notes"
+    onMissingSections: "fail-pr-create"
     # Fill with real GitHub usernames
     reviewers: []
 
