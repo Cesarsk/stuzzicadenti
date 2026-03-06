@@ -4,14 +4,14 @@ enabled: true
 jira:
   baseUrl: "https://stuzzicadenti.atlassian.net"
   projectKeys: ["KAN"]
-  pickJql: 'project = KAN AND status = "Da completare" AND labels = auto-agent ORDER BY priority DESC, created ASC, key ASC'
+  pickJql: 'project = KAN AND status = "To Do" AND labels = auto-agent ORDER BY priority DESC, created ASC, key ASC'
 
   # Exact board status names (deterministic transitions)
   statuses:
-    todo: "Da completare"
-    inProgress: "In corso"
-    review: "In revisione"
-    blocked: "Bloccato" # set to null/"" if not used
+    todo: "To Do"
+    inProgress: "In Progress"
+    review: "In Review"
+    blocked: "Blocked" # set to null/"" if not used
 
   labels:
     eligibility: "auto-agent"
@@ -81,7 +81,7 @@ blockedPolicy:
     addLabel: "blocked-auto"
     postCommentFromTemplate: ".kiki/templates/blocked-comment.md"
     transitionToBlocked: true
-    blockedStatusName: "Bloccato"
+    blockedStatusName: "Blocked"
     stopCurrentTicket: true
     pickNextTicket: false
 
@@ -92,7 +92,7 @@ failurePolicy:
     postComment: true
     # Fill with Jira accountId or leave null
     assignTo: null
-    transitionTo: "In corso"
+    transitionTo: "In Progress"
 
 audit:
   enabled: true
