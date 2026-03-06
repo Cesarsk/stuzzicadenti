@@ -83,7 +83,19 @@ def transition_issue(base_url, email, token, key, target_name):
 
 
 def comment_issue(base_url, email, token, key, text):
-    jira_request(base_url, email, token, 'POST', f'/rest/api/3/issue/{key}/comment', {'body': text})
+    adf = {
+        'body': {
+            'type': 'doc',
+            'version': 1,
+            'content': [
+                {
+                    'type': 'paragraph',
+                    'content': [{'type': 'text', 'text': text}],
+                }
+            ],
+        }
+    }
+    jira_request(base_url, email, token, 'POST', f'/rest/api/3/issue/{key}/comment', adf)
 
 
 def implement_ticket(worktree: Path, key: str, summary: str):
