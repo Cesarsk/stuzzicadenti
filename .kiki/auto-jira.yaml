@@ -36,6 +36,8 @@ github:
   pr:
     required: true
     draft: false
+    requireDescription: true
+    descriptionTemplate: ".kiki/templates/pr-description.md"
     # Fill with real GitHub usernames
     reviewers: []
 
