@@ -20,7 +20,9 @@ def fail(msg: str) -> None:
 
 
 def run(cmd, cwd=None):
-    r = subprocess.run(cmd, cwd=cwd, text=True, capture_output=True)
+    env = os.environ.copy()
+    env.setdefault('GIT_SSH_COMMAND', 'ssh -i /state/workspace/.ssh/kiki_github_ed25519 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null')
+    r = subprocess.run(cmd, cwd=cwd, text=True, capture_output=True, env=env)
     if r.returncode != 0:
         raise RuntimeError(f"command failed: {' '.join(cmd)}\n{r.stdout}\n{r.stderr}")
     return r.stdout.strip()
