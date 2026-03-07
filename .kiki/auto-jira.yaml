@@ -3,8 +3,8 @@ enabled: true
 
 jira:
   baseUrl: "https://stuzzicadenti.atlassian.net"
-  projectKeys: ["KAN"]
-  pickJql: 'project = KAN AND status = "To Do" AND labels = auto-agent ORDER BY priority DESC, created ASC, key ASC'
+  projectKeys: ["MOT"]
+  pickJql: 'project = MOT AND status = "To Do" ORDER BY priority DESC, created ASC, key ASC'
 
   # Exact board status names (deterministic transitions)
   statuses:
@@ -14,7 +14,7 @@ jira:
     blocked: "Blocked" # set to null/"" if not used
 
   labels:
-    eligibility: "auto-agent"
+    eligibility: null  # no label required — agent picks up any To Do ticket
     blocked: "blocked-auto"
     failed: "auto-failed"
     needsSpec: "needs-spec"
@@ -25,7 +25,7 @@ jira:
     - issuetype
 
 github:
-  repo: "Cesarsk/stuzzicadenti"
+  repo: "stuzzicadenti-ag/stuzzicadenti"
   baseBranch: "main"
 
   # Branch naming convention (deterministic)
