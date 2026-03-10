@@ -8,7 +8,7 @@
 :root {
   --color-bg: #faf8f5;
   --color-text: #2c2417;
-  --color-accent: #b8860b;
+  --color-accent: #7a5a0a;
   --color-accent-light: #daa520;
   --color-card-bg: #fff;
   --color-card-border: #e8dcc8;
@@ -212,7 +212,8 @@ body {
 }
 
 .card:hover .card__inner,
-.card:focus .card__inner {
+.card:focus .card__inner,
+.card--flipped .card__inner {
   transform: rotateY(180deg);
 }
 
@@ -260,17 +261,6 @@ body {
 }
 
 .card__fact { font-size: .88rem; }
-
-/* --- Confetti burst on click (MOT-6) --- */
-@keyframes confetti-pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.card--clicked {
-  animation: confetti-pop .3s ease;
-}
 
 /* ============================================
    History / Timeline (MOT-7)

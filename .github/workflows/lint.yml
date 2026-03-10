@@ -15,7 +15,7 @@ jobs:
       - name: Validate HTML
         run: |
           sudo apt-get install -y tidy > /dev/null 2>&1
-          find src -name "*.html" -exec tidy -q -e {} \; 2>&1 || true
+          find src -name "*.html" -exec tidy -q -e {} \;
 
       - name: Check for secrets
         run: |

@@ -16,11 +16,13 @@
   <meta property="og:url" content="https://stuzzicadenti-ag.github.io/stuzzicadenti/">
   <meta property="og:site_name" content="Stuzzicadenti">
   <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://stuzzicadenti-ag.github.io/stuzzicadenti/img/og-image.png">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Stuzzicadenti — The World of Toothpicks">
   <meta name="twitter:description" content="Explore the fascinating world of stuzzicadenti — types, history, and cultural traditions.">
+  <meta name="twitter:image" content="https://stuzzicadenti-ag.github.io/stuzzicadenti/img/og-image.png">
 
   <!-- Canonical -->
   <link rel="canonical" href="https://stuzzicadenti-ag.github.io/stuzzicadenti/">
@@ -47,7 +49,13 @@
   }
   </script>
 
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
+
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Noscript fallback for scroll animations -->
+  <noscript><style>.card,.timeline__item,.facts__card{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 
@@ -79,7 +87,7 @@
 
     <div class="gallery__grid">
 
-      <article class="card" tabindex="0">
+      <article class="card" tabindex="0" role="button" aria-label="Classic Round toothpick, tap to flip">
         <div class="card__icon">&#129477;</div>
         <div class="card__inner">
           <div class="card__front">
@@ -92,7 +100,7 @@
         </div>
       </article>
 
-      <article class="card" tabindex="0">
+      <article class="card" tabindex="0" role="button" aria-label="Flat Paddle toothpick, tap to flip">
         <div class="card__icon">&#128204;</div>
         <div class="card__inner">
           <div class="card__front">
@@ -105,7 +113,7 @@
         </div>
       </article>
 
-      <article class="card" tabindex="0">
+      <article class="card" tabindex="0" role="button" aria-label="Cocktail Pick, tap to flip">
         <div class="card__icon">&#127865;</div>
         <div class="card__inner">
           <div class="card__front">
@@ -118,7 +126,7 @@
         </div>
       </article>
 
-      <article class="card" tabindex="0">
+      <article class="card" tabindex="0" role="button" aria-label="Tsumayoji toothpick, tap to flip">
         <div class="card__icon">&#127884;</div>
         <div class="card__inner">
           <div class="card__front">
@@ -131,7 +139,7 @@
         </div>
       </article>
 
-      <article class="card" tabindex="0">
+      <article class="card" tabindex="0" role="button" aria-label="Flavored Pick, tap to flip">
         <div class="card__icon">&#127807;</div>
         <div class="card__inner">
           <div class="card__front">
@@ -144,7 +152,7 @@
         </div>
       </article>
 
-      <article class="card" tabindex="0">
+      <article class="card" tabindex="0" role="button" aria-label="Luxury Metal toothpick, tap to flip">
         <div class="card__icon">&#128142;</div>
         <div class="card__inner">
           <div class="card__front">
@@ -255,25 +263,7 @@
     <p class="footer__tagline">Made with care in Switzerland &#127464;&#127469;</p>
   </footer>
 
-  <!-- Scroll animation observer -->
-  <script>
-    (function() {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15 });
-
-      document.querySelectorAll('.card, .timeline__item, .facts__card').forEach(function(el) {
-        observer.observe(el);
-      });
-    })();
-  </script>
+  <script src="js/main.js"></script>
 
 </body>
 </html>

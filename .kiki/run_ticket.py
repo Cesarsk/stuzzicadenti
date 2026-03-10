@@ -82,7 +82,7 @@ def main():
         fail(f'{key} type {issue_type} not allowed')
 
     needed_label = jira['labels']['eligibility']
-    if needed_label not in labels:
+    if needed_label is not None and needed_label not in labels:
         fail(f'{key} missing required label {needed_label}')
 
     branch_template = github['branchNameTemplate']

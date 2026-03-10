@@ -30,7 +30,10 @@ stuzzicadenti/
 │   ├── index.html          # Main page
 │   ├── css/
 │   │   └── style.css       # Styles (BEM)
-│   └── robots.txt          # Search engine directives
+│   ├── js/
+│   │   └── main.js         # Extracted scripts (CSP compliant)
+│   ├── robots.txt          # Search engine directives
+│   └── sitemap.xml         # Sitemap for SEO
 ├── .github/
 │   └── workflows/
 │       ├── deploy.yml       # GitHub Pages deployment
@@ -55,6 +58,19 @@ git clone https://github.com/stuzzicadenti-ag/stuzzicadenti.git
 cd stuzzicadenti
 open src/index.html
 ```
+
+## Security & Accessibility
+
+- **CSP meta tag**: Content Security Policy to restrict script/style sources
+- **Inline JS extracted**: Moved inline scripts to `src/js/main.js` (CSP compliant)
+- **Noscript fallback**: Graceful degradation message when JavaScript is disabled
+- **og:image meta tag**: Open Graph image for social media previews
+- **sitemap.xml**: Added for search engine discoverability
+- **Lint workflow fixed**: Updated GitHub Actions lint CI
+- **Mobile tap handler**: Touch support for flip-card interactions on mobile
+- **Hero button contrast**: Improved color contrast on hero CTA button
+- **Dead CSS removed**: Cleaned up unused CSS rules
+- **Label eligibility fix**: Corrected bug in toothpick label display logic
 
 ## License
 
